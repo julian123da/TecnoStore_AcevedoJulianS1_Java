@@ -13,6 +13,7 @@ public class ClienteDAO {
         this.connection = connection;
     }
 
+
     public void insertar(Cliente c) throws SQLException {
         String sql = "INSERT INTO clientes (nombre, apellido, correo, telefono) VALUES (?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -24,6 +25,7 @@ public class ClienteDAO {
         }
     }
 
+   
     public void actualizar(Cliente c) throws SQLException {
         String sql = "UPDATE clientes SET nombre=?, apellido=?, correo=?, telefono=? WHERE id=?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -36,6 +38,7 @@ public class ClienteDAO {
         }
     }
 
+    
     public void eliminar(int id) throws SQLException {
         String sql = "DELETE FROM clientes WHERE id=?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -44,11 +47,14 @@ public class ClienteDAO {
         }
     }
 
+    
     public List<Cliente> listar() throws SQLException {
         List<Cliente> lista = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
             while (rs.next()) {
                 Cliente c = new Cliente();
                 c.setId(rs.getInt("id"));
@@ -62,10 +68,12 @@ public class ClienteDAO {
         return lista;
     }
 
+   
     public Cliente buscarPorId(int id) throws SQLException {
         String sql = "SELECT * FROM clientes WHERE id=?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Cliente c = new Cliente();
