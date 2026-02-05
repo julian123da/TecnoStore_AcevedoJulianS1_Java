@@ -37,4 +37,26 @@ public class GestorClientes {
             System.out.println("Error al listar: " + e.getMessage());
         }
     }
+
+    public void actualizarCliente(Cliente c) {
+        if (!c.getCorreo().contains("@")) {
+            System.out.println("Correo inválido.");
+            return;
+        }
+        try {
+            dao.actualizar(c);
+            System.out.println("Cliente actualizado correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar: " + e.getMessage());
+        }
+    }
+
+    public void eliminarCliente(int id) {
+        try {
+            dao.eliminar(id);
+            System.out.println("Cliente eliminado correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar: " + e.getMessage());
+        }
+    }
 }

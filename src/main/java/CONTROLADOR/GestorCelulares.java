@@ -38,5 +38,21 @@ public class GestorCelulares {
         }
     }
 
-    
+    public void actualizarCelular(Celular c) {
+        try {
+            dao.actualizar(c);
+            System.out.println("Celular actualizado correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar: " + e.getMessage());
+        }
+    }
+
+    public void eliminarCelular(int id) {
+        try {
+            dao.eliminar(id);
+            System.out.println("Celular eliminado correctamente.");
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar: " + e.getMessage());
+        }
+    }
 }
