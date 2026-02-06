@@ -13,7 +13,6 @@ public class ClienteDAO {
         this.connection = connection;
     }
 
-
     public void insertar(Cliente c) throws SQLException {
         String sql = "INSERT INTO clientes (nombre, apellido, correo, telefono) VALUES (?,?,?,?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -25,7 +24,6 @@ public class ClienteDAO {
         }
     }
 
-   
     public void actualizar(Cliente c) throws SQLException {
         String sql = "UPDATE clientes SET nombre=?, apellido=?, correo=?, telefono=? WHERE id=?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -38,7 +36,6 @@ public class ClienteDAO {
         }
     }
 
-    
     public void eliminar(int id) throws SQLException {
         String sql = "DELETE FROM clientes WHERE id=?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -47,7 +44,6 @@ public class ClienteDAO {
         }
     }
 
-    
     public List<Cliente> listar() throws SQLException {
         List<Cliente> lista = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
@@ -68,7 +64,6 @@ public class ClienteDAO {
         return lista;
     }
 
-   
     public Cliente buscarPorId(int id) throws SQLException {
         String sql = "SELECT * FROM clientes WHERE id=?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -87,5 +82,18 @@ public class ClienteDAO {
             }
         }
         return null;
+    }
+    
+    public boolean existeIdentificacion(String identificacion) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM clientes WHERE identificacion = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, identificacion);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
     }
 }
