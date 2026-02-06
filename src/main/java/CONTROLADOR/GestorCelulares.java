@@ -30,8 +30,18 @@ public class GestorCelulares {
     public void listarCelulares() {
         try {
             List<Celular> lista = dao.listar();
+
+            
+            System.out.printf("%-5s %-15s %-15s %-10s %-10s %-12s %-6s%n",
+                              "ID", "Marca", "Modelo", "SO", "Gama", "Precio", "Stock");
+            System.out.println("----------------------------------------------------------------------------");
+
+           
             for (Celular c : lista) {
-                System.out.println(c);
+                System.out.printf("%-5d %-15s %-15s %-10s %-10s %-12.2f %-6d%n",
+                                  c.getId(), c.getMarca(), c.getModelo(),
+                                  c.getSistemaOperativo(), c.getGama(),
+                                  c.getPrecio(), c.getStock());
             }
         } catch (SQLException e) {
             System.out.println("Error al listar: " + e.getMessage());
@@ -53,6 +63,24 @@ public class GestorCelulares {
             System.out.println("Celular eliminado correctamente.");
         } catch (SQLException e) {
             System.out.println("Error al eliminar: " + e.getMessage());
+        }
+    }
+
+    public void mostrarReporteStockBajo() {
+        try {
+            List<Celular> lista = dao.listar();
+            System.out.println("\n--- CELULARES CON STOCK BAJO (<=5) ---");
+            System.out.printf("%-5s %-15s %-15s %-6s%n", "ID", "Marca", "Modelo", "Stock");
+            System.out.println("-------------------------------------------");
+
+            for (Celular c : lista) {
+                if (c.getStock() <= 5) {
+                    System.out.printf("%-5d %-15s %-15s %-6d%n",
+                                      c.getId(), c.getMarca(), c.getModelo(), c.getStock());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al generar reporte de stock bajo: " + e.getMessage());
         }
     }
 }
