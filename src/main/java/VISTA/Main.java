@@ -23,7 +23,7 @@ public class Main {
 
         try (Scanner sc = new Scanner(System.in)) {
             int opcion;
-            
+
             do {
                 System.out.println("\n=== MENU TECNOSTORE ===");
                 System.out.println("1. Gestionar Celulares");
@@ -33,9 +33,9 @@ public class Main {
                 System.out.print("Elige una opción: ");
                 opcion = sc.nextInt();
                 sc.nextLine();
-                
+
                 switch (opcion) {
-                    
+
                     case 1 -> {
                         int subOpcionCelular;
                         do {
@@ -48,7 +48,7 @@ public class Main {
                             System.out.print("Elige una opción: ");
                             subOpcionCelular = sc.nextInt();
                             sc.nextLine();
-                            
+
                             switch (subOpcionCelular) {
                                 case 1 -> {
                                     System.out.print("Marca: ");
@@ -64,13 +64,13 @@ public class Main {
                                     System.out.print("Stock: ");
                                     int stock = sc.nextInt();
                                     sc.nextLine();
-                                    
+
                                     Celular c = new Celular(0, marca, modelo, precio, stock, so, gama);
                                     gestorCelular.registrarCelular(c);
                                 }
-                                    
+
                                 case 2 -> gestorCelular.listarCelulares();
-                                    
+
                                 case 3 -> {
                                     System.out.print("ID del celular a actualizar: ");
                                     int idActualizar = sc.nextInt();
@@ -88,25 +88,27 @@ public class Main {
                                     System.out.print("Nuevo stock: ");
                                     int nuevoStock = sc.nextInt();
                                     sc.nextLine();
-                                    
-                                    Celular cActualizar = new Celular(idActualizar, nuevaMarca, nuevoModelo, nuevoPrecio, nuevoStock, nuevoSO, nuevaGama);
+
+                                    Celular cActualizar = new Celular(
+                                            idActualizar, nuevaMarca, nuevoModelo,
+                                            nuevoPrecio, nuevoStock, nuevoSO, nuevaGama
+                                    );
                                     gestorCelular.actualizarCelular(cActualizar);
                                 }
-                                    
+
                                 case 4 -> {
                                     System.out.print("ID del celular a eliminar: ");
                                     int idEliminar = sc.nextInt();
                                     sc.nextLine();
                                     gestorCelular.eliminarCelular(idEliminar);
                                 }
-                                    
+
                                 case 5 -> System.out.println("Volviendo al menú principal...");
-                                    
                                 default -> System.out.println("Opción inválida.");
                             }
                         } while (subOpcionCelular != 5);
                     }
-                    
+
                     case 2 -> {
                         int subOpcionCliente;
                         do {
@@ -119,7 +121,7 @@ public class Main {
                             System.out.print("Elige una opción: ");
                             subOpcionCliente = sc.nextInt();
                             sc.nextLine();
-                            
+
                             switch (subOpcionCliente) {
                                 case 1 -> {
                                     System.out.print("Nombre: ");
@@ -130,13 +132,13 @@ public class Main {
                                     String correo = sc.nextLine();
                                     System.out.print("Teléfono: ");
                                     String tel = sc.nextLine();
-                                    
+
                                     Cliente cl = new Cliente(0, nombre, apellido, correo, tel);
                                     gestorCliente.registrarCliente(cl);
                                 }
-                                    
+
                                 case 2 -> gestorCliente.listarClientes();
-                                    
+
                                 case 3 -> {
                                     System.out.print("ID del cliente a actualizar: ");
                                     int idActualizarCliente = sc.nextInt();
@@ -149,25 +151,27 @@ public class Main {
                                     String nuevoCorreo = sc.nextLine();
                                     System.out.print("Nuevo teléfono: ");
                                     String nuevoTel = sc.nextLine();
-                                    
-                                    Cliente clActualizar = new Cliente(idActualizarCliente, nuevoNombre, nuevoApellido, nuevoCorreo, nuevoTel);
+
+                                    Cliente clActualizar = new Cliente(
+                                            idActualizarCliente, nuevoNombre,
+                                            nuevoApellido, nuevoCorreo, nuevoTel
+                                    );
                                     gestorCliente.actualizarCliente(clActualizar);
                                 }
-                                    
+
                                 case 4 -> {
                                     System.out.print("ID del cliente a eliminar: ");
                                     int idEliminarCliente = sc.nextInt();
                                     sc.nextLine();
                                     gestorCliente.eliminarCliente(idEliminarCliente);
                                 }
-                                    
+
                                 case 5 -> System.out.println("Volviendo al menú principal...");
-                                    
                                 default -> System.out.println("Opción inválida.");
                             }
                         } while (subOpcionCliente != 5);
                     }
-                    
+
                     case 3 -> {
                         System.out.print("ID Cliente: ");
                         String idCliente = sc.nextLine();
@@ -175,20 +179,19 @@ public class Main {
                         String idCelular = sc.nextLine();
                         System.out.print("Cantidad: ");
                         int cantidad = sc.nextInt();
-                        System.out.print("Subtotal: ");
-                        double subtotal = sc.nextDouble();
                         sc.nextLine();
-                        
-                        Venta v = new Venta(0, idCliente, "2026-02-05", subtotal);
-                        DetalleVenta dv = new DetalleVenta(0, idCliente, idCelular, cantidad, subtotal);
+
+                       
+                        Venta v = new Venta(0, idCliente, "2026-02-05", 0);
+                        DetalleVenta dv = new DetalleVenta(0, idCliente, idCelular, cantidad, 0);
+
                         gestorVenta.registrarVenta(v, dv);
                     }
-                    
+
                     case 4 -> System.out.println("Saliendo...");
-                    
                     default -> System.out.println("Opción inválida.");
                 }
-                
+
             } while (opcion != 4);
         }
     }
