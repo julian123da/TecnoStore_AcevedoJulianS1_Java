@@ -4,17 +4,17 @@ public class Cliente {
 
     private int id;
     private String nombre;
-    private String apellido;
+    private String identificacion;
     private String correo;
     private String telefono;
 
     public Cliente() {
     }
 
-    public Cliente(int id, String nombre, String apellido, String correo, String telefono) {
+    public Cliente(int id, String nombre, String identificacion, String correo, String telefono) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.identificacion = identificacion;
         this.correo = correo;
         this.telefono = telefono;
     }
@@ -23,36 +23,36 @@ public class Cliente {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
     public String getCorreo() {
         return correo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
     public String getTelefono() {
         return telefono;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public void setTelefono(String telefono) {
@@ -64,7 +64,7 @@ public class Cliente {
         return "Cliente{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
+                ", identificacion='" + identificacion + '\'' +
                 ", correo='" + correo + '\'' +
                 ", telefono='" + telefono + '\'' +
                 '}';

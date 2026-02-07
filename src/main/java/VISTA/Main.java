@@ -36,6 +36,7 @@ public class Main {
 
                 switch (opcion) {
 
+                    // ================= CELULARES =================
                     case 1 -> {
                         int subOpcionCelular;
                         do {
@@ -109,6 +110,7 @@ public class Main {
                         } while (subOpcionCelular != 5);
                     }
 
+                    // ================= CLIENTES =================
                     case 2 -> {
                         int subOpcionCliente;
                         do {
@@ -126,14 +128,16 @@ public class Main {
                                 case 1 -> {
                                     System.out.print("Nombre: ");
                                     String nombre = sc.nextLine();
-                                    System.out.print("Apellido: ");
-                                    String apellido = sc.nextLine();
+                                    System.out.print("Identificación: ");
+                                    String identificacion = sc.nextLine();
                                     System.out.print("Correo: ");
                                     String correo = sc.nextLine();
                                     System.out.print("Teléfono: ");
                                     String tel = sc.nextLine();
 
-                                    Cliente cl = new Cliente(0, nombre, apellido, correo, tel);
+                                    Cliente cl = new Cliente(
+                                            0, nombre, identificacion, correo, tel
+                                    );
                                     gestorCliente.registrarCliente(cl);
                                 }
 
@@ -145,16 +149,19 @@ public class Main {
                                     sc.nextLine();
                                     System.out.print("Nuevo nombre: ");
                                     String nuevoNombre = sc.nextLine();
-                                    System.out.print("Nuevo apellido: ");
-                                    String nuevoApellido = sc.nextLine();
+                                    System.out.print("Nueva identificación: ");
+                                    String nuevaIdentificacion = sc.nextLine();
                                     System.out.print("Nuevo correo: ");
                                     String nuevoCorreo = sc.nextLine();
                                     System.out.print("Nuevo teléfono: ");
                                     String nuevoTel = sc.nextLine();
 
                                     Cliente clActualizar = new Cliente(
-                                            idActualizarCliente, nuevoNombre,
-                                            nuevoApellido, nuevoCorreo, nuevoTel
+                                            idActualizarCliente,
+                                            nuevoNombre,
+                                            nuevaIdentificacion,
+                                            nuevoCorreo,
+                                            nuevoTel
                                     );
                                     gestorCliente.actualizarCliente(clActualizar);
                                 }
@@ -172,6 +179,7 @@ public class Main {
                         } while (subOpcionCliente != 5);
                     }
 
+                    // ================= VENTAS =================
                     case 3 -> {
                         System.out.print("ID Cliente: ");
                         String idCliente = sc.nextLine();
@@ -181,7 +189,6 @@ public class Main {
                         int cantidad = sc.nextInt();
                         sc.nextLine();
 
-                       
                         Venta v = new Venta(0, idCliente, "2026-02-05", 0);
                         DetalleVenta dv = new DetalleVenta(0, idCliente, idCelular, cantidad, 0);
 
