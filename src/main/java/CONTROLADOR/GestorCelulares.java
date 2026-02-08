@@ -21,7 +21,10 @@ public class GestorCelulares {
                 return;
             }
             dao.insertar(c);
-            System.out.println("Celular registrado correctamente.");
+           System.out.println("=================================");
+           System.out.println("CELULAR REGISTRADO CON ÉXITO ");
+           System.out.println("=================================");
+
         } catch (SQLException e) {
             System.out.println("Error al insertar: " + e.getMessage());
         }
