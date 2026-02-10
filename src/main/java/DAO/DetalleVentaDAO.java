@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DetalleVentaDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     public DetalleVentaDAO(Connection connection) {
         this.connection = connection;

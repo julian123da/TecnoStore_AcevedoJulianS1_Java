@@ -182,18 +182,35 @@ public class Main {
                     // ================= VENTAS =================
                     case 3 -> {
                         System.out.print("ID Cliente: ");
-                        String idCliente = sc.nextLine();
+                        int idCliente = sc.nextInt();
+
                         System.out.print("ID Celular: ");
-                        String idCelular = sc.nextLine();
+                        String idCelular = sc.next();
+
                         System.out.print("Cantidad: ");
                         int cantidad = sc.nextInt();
                         sc.nextLine();
 
-                        Venta v = new Venta(0, idCliente, "2026-02-05", 0);
-                        DetalleVenta dv = new DetalleVenta(0, idCliente, idCelular, cantidad, 0);
+                        // 👇 ÚNICO CAMBIO REAL AQUÍ
+                        Venta v;
+                        v = new Venta(
+                                0,
+                                new Cliente(idCliente, "", "", "", ""),
+                                "2026-02-05",
+                                0
+                        );
+
+                        DetalleVenta dv = new DetalleVenta(
+                                0,
+                                String.valueOf(idCliente),
+                                idCelular,
+                                cantidad,
+                                0
+                        );
 
                         gestorVenta.registrarVenta(v, dv);
                     }
+
 
                     case 4 -> System.out.println("Saliendo...");
                     default -> System.out.println("Opción inválida.");

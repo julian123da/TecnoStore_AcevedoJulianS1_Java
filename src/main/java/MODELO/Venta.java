@@ -1,18 +1,24 @@
 package MODELO;
 
 public class Venta {
-    
-    
     private int id;
-    private String cliente;
+    private Cliente cliente;
     private String fecha;
     private double total;
 
-    public Venta(int id, String cliente, String fecha, double total) {
-        this.id = id;
+    public Venta(int id, Cliente cliente, String fecha, int total) {
         this.cliente = cliente;
+        this.id = id;
         this.fecha = fecha;
         this.total = total;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public int getId() {
@@ -21,14 +27,6 @@ public class Venta {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
     }
 
     public String getFecha() {
@@ -46,6 +44,8 @@ public class Venta {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    
 
     @Override
     public String toString() {

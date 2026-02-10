@@ -12,61 +12,72 @@ public class GestorVentas {
 
     private final VentaDAO ventaDAO;
     private final CelularDAO celularDAO;
+    private final Connection connection;
 
     public GestorVentas(Connection connection) {
-        ventaDAO = new VentaDAO(connection);
-        celularDAO = new CelularDAO(connection);
+        this.connection = connection;
+        this.ventaDAO = new VentaDAO(connection);
+        this.celularDAO = new CelularDAO(connection);
     }
 
     public void registrarVenta(Venta v, DetalleVenta dv) {
         try {
+            connection.setAutoCommit(false);
+
             Celular celular = celularDAO.buscarPorId(
                     Integer.parseInt(dv.getCelular())
             );
 
             if (celular == null) {
                 System.out.println("Celular no encontrado.");
+                connection.rollback();
                 return;
             }
 
             if (celular.getStock() < dv.getCantidad()) {
                 System.out.println("Stock insuficiente.");
+                connection.rollback();
                 return;
             }
 
-           
             double subtotal = celular.getPrecio() * dv.getCantidad();
-            subtotal = Math.round(subtotal * 100.0) / 100.0; // 2 decimales
+            subtotal = Math.round(subtotal * 100.0) / 100.0;
             dv.setSubtotal(subtotal);
 
-            
-            double iva = subtotal * 0.19;
-            iva = Math.round(iva * 100.0) / 100.0; 
-
-            double total = subtotal + iva;
-            total = Math.round(total * 100.0) / 100.0; 
+            double iva = Math.round(subtotal * 0.19 * 100.0) / 100.0;
+            double total = Math.round((subtotal + iva) * 100.0) / 100.0;
             v.setTotal(total);
 
-           
             ventaDAO.insertarVenta(v);
 
             dv.setVenta(String.valueOf(v.getId()));
             ventaDAO.insertarDetalle(dv);
 
-            // Con eso calculamos o reducimos el stock para ver si todavia tenemos celulares disponibles
             celularDAO.reducirStock(
                     Integer.parseInt(dv.getCelular()),
                     dv.getCantidad()
             );
 
-            // Con esto podremos ver los resultados 
+            connection.commit();
+
             System.out.println("Venta registrada correctamente.");
             System.out.println("Subtotal: " + subtotal);
             System.out.println("IVA (19%): " + iva);
             System.out.println("Total: " + total);
 
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                System.out.println("Error al hacer rollback.");
+            }
             System.out.println("Error al registrar venta: " + e.getMessage());
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                System.out.println("Error al restaurar autocommit.");
+            }
         }
     }
 }
