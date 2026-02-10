@@ -65,6 +65,7 @@ Base de datos: tecnostore_db
 CREATE DATABASE IF NOT EXISTS tecnostore_db;
 USE tecnostore_db;
 
+#################
 -- Tabla de celulares
 CREATE TABLE celulares (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -104,3 +105,4 @@ CREATE TABLE detalle_ventas (
     FOREIGN KEY (id_venta) REFERENCES ventas(id),
     FOREIGN KEY (id_celular) REFERENCES celulares(id)
 );
+##############
