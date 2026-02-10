@@ -27,12 +27,32 @@ public class GestorClientes {
         }
     }
 
+    // 🔧 ALGUNAS MEJORAS PARA QUE SE VEA BIEN AL MOMENTO DE MOSTRAR LOS CLIENTES
     public void listarClientes() {
         try {
             List<Cliente> lista = dao.listar();
-            for (Cliente c : lista) {
-                System.out.println(c);
+
+            if (lista.isEmpty()) {
+                System.out.println("\n⚠ No hay clientes registrados.\n");
+                return;
             }
+
+            System.out.println("\n================= LISTA DE CLIENTES =================");
+            System.out.printf("%-5s %-15s %-18s %-25s %-15s%n",
+                    "ID", "NOMBRE", "IDENTIFICACIÓN", "CORREO", "TELÉFONO");
+            System.out.println("-----------------------------------------------------");
+
+            for (Cliente c : lista) {
+                System.out.printf("%-5d %-15s %-18s %-25s %-15s%n",
+                        c.getId(),
+                        c.getNombre(),
+                        c.getIdentificacion(),
+                        c.getCorreo(),
+                        c.getTelefono());
+            }
+
+            System.out.println("=====================================================\n");
+
         } catch (SQLException e) {
             System.out.println("Error al listar: " + e.getMessage());
         }
