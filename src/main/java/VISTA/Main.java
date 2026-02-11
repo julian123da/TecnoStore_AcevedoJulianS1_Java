@@ -8,12 +8,14 @@ import MODELO.Cliente;
 import MODELO.Venta;
 import MODELO.DetalleVenta;
 import PERSISTENCIA.Conexion;
+
 import java.sql.Connection;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
+
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
@@ -22,6 +24,7 @@ public class Main {
         GestorVentas gestorVenta = new GestorVentas(conn);
 
         try (Scanner sc = new Scanner(System.in)) {
+
             int opcion;
 
             do {
@@ -31,6 +34,7 @@ public class Main {
                 System.out.println("3. Registrar Venta");
                 System.out.println("4. Salir");
                 System.out.print("Elige una opción: ");
+
                 opcion = sc.nextInt();
                 sc.nextLine();
 
@@ -39,6 +43,7 @@ public class Main {
                     // ================= CELULARES =================
                     case 1 -> {
                         int subOpcionCelular;
+
                         do {
                             System.out.println("\n--- GESTIÓN DE CELULARES ---");
                             System.out.println("1. Registrar celular");
@@ -47,10 +52,12 @@ public class Main {
                             System.out.println("4. Eliminar celular");
                             System.out.println("5. Volver al menú principal");
                             System.out.print("Elige una opción: ");
+
                             subOpcionCelular = sc.nextInt();
                             sc.nextLine();
 
                             switch (subOpcionCelular) {
+
                                 case 1 -> {
                                     System.out.print("Marca: ");
                                     String marca = sc.nextLine();
@@ -66,11 +73,15 @@ public class Main {
                                     int stock = sc.nextInt();
                                     sc.nextLine();
 
-                                    Celular c = new Celular(0, marca, modelo, precio, stock, so, gama);
+                                    Celular c = new Celular(
+                                            0, marca, modelo, precio, stock, so, gama
+                                    );
+
                                     gestorCelular.registrarCelular(c);
                                 }
 
-                                case 2 -> gestorCelular.listarCelulares();
+                                case 2 ->
+                                    gestorCelular.listarCelulares();
 
                                 case 3 -> {
                                     System.out.print("ID del celular a actualizar: ");
@@ -91,9 +102,15 @@ public class Main {
                                     sc.nextLine();
 
                                     Celular cActualizar = new Celular(
-                                            idActualizar, nuevaMarca, nuevoModelo,
-                                            nuevoPrecio, nuevoStock, nuevoSO, nuevaGama
+                                            idActualizar,
+                                            nuevaMarca,
+                                            nuevoModelo,
+                                            nuevoPrecio,
+                                            nuevoStock,
+                                            nuevoSO,
+                                            nuevaGama
                                     );
+
                                     gestorCelular.actualizarCelular(cActualizar);
                                 }
 
@@ -104,15 +121,19 @@ public class Main {
                                     gestorCelular.eliminarCelular(idEliminar);
                                 }
 
-                                case 5 -> System.out.println("Volviendo al menú principal...");
-                                default -> System.out.println("Opción inválida.");
+                                case 5 ->
+                                    System.out.println("Volviendo al menú principal...");
+                                default ->
+                                    System.out.println("Opción inválida.");
                             }
+
                         } while (subOpcionCelular != 5);
                     }
 
                     // ================= CLIENTES =================
                     case 2 -> {
                         int subOpcionCliente;
+
                         do {
                             System.out.println("\n--- GESTIÓN DE CLIENTES ---");
                             System.out.println("1. Registrar cliente");
@@ -121,10 +142,12 @@ public class Main {
                             System.out.println("4. Eliminar cliente");
                             System.out.println("5. Volver al menú principal");
                             System.out.print("Elige una opción: ");
+
                             subOpcionCliente = sc.nextInt();
                             sc.nextLine();
 
                             switch (subOpcionCliente) {
+
                                 case 1 -> {
                                     System.out.print("Nombre: ");
                                     String nombre = sc.nextLine();
@@ -138,10 +161,12 @@ public class Main {
                                     Cliente cl = new Cliente(
                                             0, nombre, identificacion, correo, tel
                                     );
+
                                     gestorCliente.registrarCliente(cl);
                                 }
 
-                                case 2 -> gestorCliente.listarClientes();
+                                case 2 ->
+                                    gestorCliente.listarClientes();
 
                                 case 3 -> {
                                     System.out.print("ID del cliente a actualizar: ");
@@ -163,6 +188,7 @@ public class Main {
                                             nuevoCorreo,
                                             nuevoTel
                                     );
+
                                     gestorCliente.actualizarCliente(clActualizar);
                                 }
 
@@ -173,9 +199,12 @@ public class Main {
                                     gestorCliente.eliminarCliente(idEliminarCliente);
                                 }
 
-                                case 5 -> System.out.println("Volviendo al menú principal...");
-                                default -> System.out.println("Opción inválida.");
+                                case 5 ->
+                                    System.out.println("Volviendo al menú principal...");
+                                default ->
+                                    System.out.println("Opción inválida.");
                             }
+
                         } while (subOpcionCliente != 5);
                     }
 
@@ -191,9 +220,7 @@ public class Main {
                         int cantidad = sc.nextInt();
                         sc.nextLine();
 
-                        // 👇 ÚNICO CAMBIO REAL AQUÍ
-                        Venta v;
-                        v = new Venta(
+                        Venta v = new Venta(
                                 0,
                                 new Cliente(idCliente, "", "", "", ""),
                                 "2026-02-05",
@@ -211,9 +238,10 @@ public class Main {
                         gestorVenta.registrarVenta(v, dv);
                     }
 
-
-                    case 4 -> System.out.println("Saliendo...");
-                    default -> System.out.println("Opción inválida.");
+                    case 4 ->
+                        System.out.println("Saliendo...");
+                    default ->
+                        System.out.println("Opción inválida.");
                 }
 
             } while (opcion != 4);
